@@ -32,7 +32,7 @@
 	function F__ID(){
 		//-------------------------------------
 		VmInclude:__COMPONENT__/f/form.01.js
-		VmInclude:__CURRENT_PATH__/../../shared-form.js
+		VmInclude:__CURRENT_PATH__/../../library/shared-form.js
 		//-------------------------------------
 		$('#header_0').hide();
 		$('body').css('background','white');
@@ -41,6 +41,9 @@
 		var this_module=$vm.module_list[$vm.vm['__ID'].name];
 		//------------------------------------
 		$('#D__ID').on('load',function(){
+			$('#header').hide();
+			$('#footer').hide();
+			$('#participant_div__ID').hide()
 			$('#thirdparty_container__ID').css('height',$vm.min_height);
 			third_party("thirdparty_container__ID",data_process);
 
@@ -50,53 +53,43 @@
 			var tt=data.Tapping_Time.split(',');
             var m=data.Match.split(',');
             var sn=data.Sequence_Number.split(',');
-            var k=0;
-            var correct=true;
-            var group=0;
-            var speed=[];
-            var acc=[];
-            for (var i=0;i<6;i++) {speed[i]=0;acc[i]=0;}
-            for(var i=0;i<tt.length;i++){
-                if(parseInt(sn[i])-1!=k){
-                    group=0;
-                    correct=true;
-                }
-                k=parseInt(sn[i])-1;
-                speed[k]++;
-                if(m[i]=="N") correct=false;
-                group++
-                if(group==5){
-                    group=0;
-                    if(correct==false) acc[k]++;
-                    correct=true;
-                }
-            }
-            data.Speed_1=speed[0];
-            data.Speed_2=speed[1];
-            data.Speed_3=speed[2];
-            data.Speed_4=speed[3];
-            data.Speed_5=speed[4];
-            data.Speed_6=speed[5];
-            data.Accuracy_1=acc[0]
-            data.Accuracy_2=acc[1]
-            data.Accuracy_3=acc[2]
-            data.Accuracy_4=acc[3]
-            data.Accuracy_5=acc[4]
-            data.Accuracy_6=acc[5]
-			/*
-            data.Speed_1=Math.floor(speed[0]/5);
-            data.Speed_2=Math.floor(speed[1]/5);
-            data.Speed_3=Math.floor(speed[2]/5);
-            data.Speed_4=Math.floor(speed[3]/5);
-            data.Speed_5=Math.floor(speed[4]/5);
-            data.Speed_6=Math.floor(speed[5]/5);
-            data.Accuracy_1=(acc[0]/Math.floor(speed[0]/5)).toFixed(2);
-            data.Accuracy_2=(acc[1]/Math.floor(speed[1]/5)).toFixed(2);
-            data.Accuracy_3=(acc[2]/Math.floor(speed[2]/5)).toFixed(2);
-            data.Accuracy_4=(acc[3]/Math.floor(speed[3]/5)).toFixed(2);
-            data.Accuracy_5=(acc[4]/Math.floor(speed[4]/5)).toFixed(2);
-            data.Accuracy_6=(acc[5]/Math.floor(speed[5]/5)).toFixed(2);
-			*/
+			var k=0;
+                    var check=true;
+                    var group=0;
+                    var timing=0;
+                    var correct=[];
+                    var error=[];
+                    var time=[];
+                    var pos=0;
+                    for (var i=1;i<7;i++) {
+                        var r_sn = sn.filter(pp => pp ==i);
+                        //r_sn=sn.slice(pos,pos+parseInt(r_sn.length/5)*5);
+                        var r_tt=tt.slice(pos,pos+parseInt(r_sn.length));
+                        var r_m=m.slice(pos,pos+parseInt(r_sn.length));
+                        var err=0;
+                        var cor=0;
+                        var tim=0;
+                        for(var j=0;j<parseInt(r_sn.length);j++){
+                            var rr_m=r_m.slice(j,(j+1));
+                            var rr_tt=r_tt.slice(j,(j+1));
+                            var c=rr_m.filter(pp => pp =='N')
+                            if(c.length>0) err++;
+                            else {
+                                cor++;
+                                tim+=parseInt(rr_tt);
+                            }
+                        }
+                        error.push(err);
+                        correct.push(cor);
+                        time.push((tim/cor/1000).toFixed(2));
+                        pos+=r_sn.length;
+                    }
+                    data.Correct_1=correct[0];data.Error_1=error[0];data.Time_1=time[0];
+                    data.Correct_2=correct[1];data.Error_2=error[1];data.Time_2=time[1];
+                    data.Correct_3=correct[2];data.Error_3=error[2];data.Time_3=time[2];
+                    data.Correct_4=correct[3];data.Error_4=error[3];data.Time_4=time[3];
+                    data.Correct_5=correct[4];data.Error_5=error[4];data.Time_5=time[4];
+                    data.Correct_6=correct[5];data.Error_6=error[5];data.Time_6=time[5];
 		}
 		//------------------------------------
 		var ClearIntervals = function()
@@ -150,7 +143,7 @@
 			//var cleardelaytime=50;
 			var repeat = 0
 
-			var sequence = ['4', '1', '3', '2', '4'];
+			var sequence = ['1', '4', '2', '3', '1'];
 			var currentSequence = 0;
 			var currentNumber = 0;
 
@@ -202,10 +195,8 @@
 					if (currentNumber >= sequence.length)
 					{
 						results.Match.push(sequenceMatch);
-//						results.Tapping_Time.push(Date.now() - startTime + cleardelaytime);
 						results.Tapping_Time.push(Date.now() - startTime);
 						results.Sequence_Number.push(repeat);
-//						setTimeout(ResetSequence,cleardelaytime); //Added by Gunnar
 						ResetSequence();
 					}
 				}

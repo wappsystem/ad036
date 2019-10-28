@@ -27,13 +27,16 @@
 		})
 		//--------------------------------------------------------
 		$('#D__ID').on('show',function(){
-            var record=$vm.vm['__ID'].input.record;
-			id_list=record.Data.List;
-            if(id_list==undefined){
-                alert("No questionnaire was found");
-                return;
-            }
-			setup_panel();
+			var record=$vm.vm['__ID'].input.record;
+			if(record!=undefined){
+				id_list=record.Data.List;
+				if(id_list==undefined){
+					alert("No questionnaire was found");
+					return;
+				}
+				setup_panel();
+			}
+			else $vm.signout();
 		})
 		//--------------------------------------------------------
 		var status=[]
@@ -157,6 +160,6 @@
 		color:#000!Important;
 		cursor:pointer!Important;
 	}
-	VmInclude:__CURRENT_PATH__/../../../m/wappsystem-form.css
+	VmInclude:__CURRENT_PATH__/library/wappsystem-form.css
 
 </style>

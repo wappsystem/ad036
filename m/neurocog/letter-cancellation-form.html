@@ -91,8 +91,9 @@
 	function F__ID(){
 		//-------------------------------------
 		VmInclude:__COMPONENT__/f/form.01.js
-		VmInclude:__CURRENT_PATH__/../../shared-form.js
+		VmInclude:__CURRENT_PATH__/../../library/shared-form.js
 		//-------------------------------------
+		$('#content').css('padding-top','0');
 		$('#header_0').hide();
 		$('body').css('background','white');
 		var intervals = [];
@@ -100,6 +101,9 @@
 		var this_module=$vm.module_list[$vm.vm['__ID'].name];
 		//------------------------------------
 		$('#D__ID').on('load',function(){
+			$('#header').hide();
+			$('#footer').hide();
+			$('#participant_div__ID').hide()
 			$('#thirdparty_container__ID').css('height',$vm.min_height);
 			third_party("thirdparty_container__ID",data_process);
 		})
@@ -130,6 +134,9 @@
 			data.duration_4=dur[4];data.hits_4=hits[4];data.omissions_4=omis[4];data.commissions_4=comm[4];
 			data.duration_5=dur[5];data.hits_5=hits[5];data.omissions_5=omis[5];data.commissions_5=comm[5];
 			data.duration_6=dur[6];data.hits_6=hits[6];data.omissions_6=omis[6];data.commissions_6=comm[6];
+			data.Average_Hits=((parseInt(data.hits_0)+parseInt(data.hits_1)+parseInt(data.hits_2)+parseInt(data.hits_3)+parseInt(data.hits_4)+parseInt(data.hits_5))/6).toFixed(1);
+			data.Average_Omissions=((parseInt(data.omissions_0)+parseInt(data.omissions_1)+parseInt(data.omissions_2)+parseInt(data.omissions_3)+parseInt(data.omissions_4)+parseInt(data.omissions_5))/6).toFixed(1);
+			data.Average_Commissions=((parseInt(data.commissions_0)+parseInt(data.commissions_1)+parseInt(data.commissions_2)+parseInt(data.commissions_3)+parseInt(data.commissions_4)+parseInt(data.commissions_5))/6).toFixed(1);
 		}
 		//------------------------------------
 		var data_process=function(data){
