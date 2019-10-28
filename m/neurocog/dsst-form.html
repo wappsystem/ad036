@@ -92,6 +92,8 @@ Using the guide above, press the number on your keypad corresponding to the rand
 		var load2=m.load;
 		m.load=function(){
 			load2();
+			$('#header').hide();
+		    $('#footer').hide();
 			$('#thirdparty_container__ID').css('height',$vm.min_height);
 			third_party("thirdparty_container__ID",data_process);
 		}
