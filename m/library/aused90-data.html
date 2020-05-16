@@ -7,7 +7,6 @@
         function F__ID(){
             //-------------------------------------
             VmInclude:__COMPONENT__/g/grid.01.js       
-            VmInclude:__CURRENT_PATH__/shared-data.js
             //-------------------------------------
             if(m.prefix==undefined) m.prefix="";
            //-------------------------------------
@@ -16,7 +15,7 @@
             var first_table="";
             var last_table="";
             m.load=function(){
-                var fields="_Aused_ID,Participant_ID,Local_ID,Initials,File_Name,Version_No";
+                var fields="File_Name";
                 var dyn_fields="";    
                 var nopart=18;
                 var count=nopart;
@@ -33,9 +32,9 @@
                     dyn_fields+=",SPDEV_P"+(i+1)
                 }
                 dyn_fields+=",Number_RT,Mean_RT,Median_RT,StDev_RT,Lapses,Number_Crashes,Crashes_Off_Road,Crashes_Standing_Still,Crashes_Into_Truck"
-                dyn_fields+=",RT1,RT2,RT3,RT4,RT5,RT6,RT7"
+                dyn_fields+=",RT1,RT2,RT3,RT4,RT5,RT6,RT7,Version_No"
                 $vm.dyn_fields=dyn_fields;
-                m.fields="_Form,_Status,_Notes,_Participant_ID,Participant,"+fields+','+dyn_fields+",Submit_date,Submitted_by,_Delete";
+                m.fields="_Form,_Participant_ID|Participant_uid,Participant,"+fields+','+dyn_fields+",Submit_date,Submitted_by,_Delete";
                 //m.fields="_Form,"+fields+','+dyn_fields+",Submit_date,Submitted_by,_Delete";
                 //$vm.astn_current_project_record=m.input.record;
                 //m.I2=m.input.record.UID;
