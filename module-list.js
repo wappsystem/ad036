@@ -7,7 +7,7 @@
                                             child_panel:"panel-child",
                                             questionnaire_setup:"online-questionnaire-setup-ad036",
                                             online_questionnaire:"online-questionnaire-app-ad036",
-                                            participant_id:{field1:"Subject_ID",field2:"Subject_Initials"}
+                                            participant_id:{field1:"Subject_ID"}
                                         },
         "participant-form":   		{url:"$H/m/participant/participant-form.html",Table:"ad036-participant"},
 
