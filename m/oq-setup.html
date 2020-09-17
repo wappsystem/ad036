@@ -36,6 +36,10 @@
             VmInclude:__COMPONENT__/f/form.01.js
 			//-------------------------------------
             var q_list={
+                "Practice":[
+                "ad036-practice-2back-form",
+                "ad036-practice-dsst-form",
+                ],
                 "Week 2":[
                 "ad036-w2-2back-form",
                 "ad036-w2-dsst-form",
@@ -43,10 +47,6 @@
                 "Week 6":[
                 "ad036-w6-2back-form",
                 "ad036-w6-dsst-form",
-                ],
-                "Practice":[
-                "ad036-practice-2back-form",
-                "ad036-practice-dsst-form",
                 ],
             }
             //-------------------------------------
@@ -60,7 +60,7 @@
 			//-------------------------------------
             m.before_submit=function(data){
                 data['List']=$('#F__ID textarea[name=List]').val();
-                $vm.module_list['participant-data'].change_status=1;
+                $vm.module_list['participant-data'].change_status=1;                
 			}
 			//-------------------------------------
             var set_check_list=function(){
@@ -162,7 +162,7 @@
         }
     </script>
     <style>
-    	#table_form__ID {width:100%;font-size:10pt; font-family:'Nunito Sans'; margin-left:25px; margin-right:25px; border: 0px #B8BDBF solid; border-spacing:0; border-collapse: collapse; table-layout: automatic;}
+    	#table_form__ID {width:95%;font-size:10pt; font-family:'Nunito Sans'; margin-left:25px; margin-right:25px; border: 0px #B8BDBF solid; border-spacing:0; border-collapse: collapse; table-layout: automatic;}
     	#table_form__ID td{ border: 1px #B8BDBF solid; color: #333333; border-collapse: collapse; text-align: left; padding: 1px;padding-right:4px; vertical-align:top;}
     	#table_form__ID td:first-child{padding:3px;}
     	#table_form__ID label{margin-bottom: 0;font-style: normal}
